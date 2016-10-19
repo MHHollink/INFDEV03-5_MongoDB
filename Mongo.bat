@@ -1,0 +1,1 @@
+"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --dbpath "C:\Users\marce\Documents\GitHub\MongoDB-HRO\database\MongoDB"
