@@ -3,38 +3,39 @@ package nl.hro.assignment2.utils;
 import nl.hro.assignment2.models.Address;
 import nl.hro.assignment2.models.Degree;
 import nl.hro.assignment2.models.Employee;
+import nl.hro.assignment2.models.Project;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 
 public class RandomGenerator {
 
     private String[] fname = {
-            "Marg",     "Louella",  "Corie",    "Lavenia",  "Valery",   "Merrill",  "Merrie",   "Waneta",   "Ela",      "Abraham",
-            "Layla",    "Lashanda", "Delilah",  "Kit",      "Lizzie",   "Kiesha",   "Irvin",    "Tran",     "Mercedez", "Kerry",
-            "Calvin",   "Berry",    "Tori",     "Marvis",   "Sina",     "Jessie",   "Lauryn",   "Racheal",  "Fernanda", "Emogene",
-            "Alexander","Vennie",   "Cherryl",  "Gertudis", "Vaughn",   "jewel",    "Jeffery",  "Marisa",   "Delisa",   "Francesca",
-            "Elena",    "Carma",    "Emmaline", "Sherize",  "Rosemary", "Lavern",   "Suanne",   "Deshawn",  "Angelina", "Moon"
+            "Marg", "Louella", "Corie", "Lavenia", "Valery", "Merrill", "Merrie", "Waneta", "Ela", "Abraham", "Layla", "Lashanda",
+            "Delilah", "Kit", "Lizzie", "Kiesha", "Irvin", "Tran", "Mercedez", "Kerry", "Calvin", "Berry", "Tori", "Marvis", "Sina",
+            "Jessie", "Lauryn", "Racheal", "Fernanda", "Emogene", "Alexander","Vennie", "Cherryl", "Gertudis", "Vaughn", "jewel",
+            "Jeffery", "Marisa", "Delisa", "Francesca", "Elena", "Carma", "Emmaline", "Sherize", "Rosemary", "Lavern", "Suanne",
+            "Deshawn", "Angelina", "Moon"
     };
 
     private String[] tween = {
-            "aan ", "bij ", "de ", "den ", "der ", "in ", "het ", "'t ", "in het ", "in 't ",
-            "in der ", "van der ", "van ", "van het ", "vanden "
+            "aan ", "bij ", "de ", "den ", "der ", "in ", "het ", "'t ", "in het ", "in 't ", "in der ", "van der ", "van ", "van het ", "vanden "
     };
 
     private String[] lname = {
-            "Mele",     "Lema",     "Carra",    "Leigh",   "Villanueva","Mcgloth",  "Mahood",   "Welch",    "Eckenrode","Avey",
-            "Laing",    "Licon",    "Dudley",   "Kamp",     "Lynde",    "Klassen",  "Indelico", "Tufts",    "Martines", "Kirksey",
-            "Cavender", "Bozell",  "Turnipseed","Matteson", "Saez",     "Jimmerson","Lamere",   "Ramirez",  "Furness",  "Ennals",
-            "Austell",  "Van",      "Combs",    "Gulino",   "Vesely",   "Joye",     "Joshua",   "Melgar",   "Dickinson","Fisch",
-            "Ebinger",  "Stanley",  "Rasmussen","Lenart",   "Scholl",   "Drone",    "Avalos",   "Valerius", "Victoria", "Moon"
+            "Mele", "Lema", "Carra", "Leigh", "Villanueva", "Mcgloth", "Mahood", "Welch", "Eckenrode","Avey", "Laing", "Licon",
+            "Dudley", "Kamp", "Lynde", "Klassen", "Indelico", "Tufts", "Martines", "Kirksey", "Cavender", "Bozell", "Turnipseed",
+            "Matteson", "Saez", "Jimmerson", "Lamere", "Ramirez", "Furness", "Ennals", "Austell", "Van", "Combs", "Gulino", "Vesely",
+            "Joye", "Joshua", "Melgar", "Dickinson","Fisch", "Ebinger", "Stanley", "Rasmussen","Lenart", "Scholl", "Drone", "Avalos",
+            "Valerius", "Victoria", "Moon"
     };
 
     private String[] country = {
-            "Afghanistan", "Argentina", "Belgium", "Bosnia and Herzegovina", "Canada", "China",
-            "Denmark", "Finland", "France", "Germany", "Italy", "Malawi", "Netherlands", "Russia",
+            "Afghanistan", "Argentina", "Belgium", "Bosnia and Herzegovina", "Canada", "China", "Denmark", "Finland", "France",
+            "Germany", "Italy", "Malawi", "Netherlands", "Russia",
     };
 
     private String[] school = {
@@ -42,9 +43,7 @@ public class RandomGenerator {
     };
 
     private String[] level = {
-            "Bachelor",
-            "Master of Science",
-            "PHD"
+            "Bachelor", "Master of Science", "PHD"
     };
 
     private Random random;
@@ -115,6 +114,7 @@ public class RandomGenerator {
         return name;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Address address() {
         return new Address(postalCode(), country(), city(), random.nextInt(14000)+1);
     }
@@ -138,7 +138,38 @@ public class RandomGenerator {
         return level[random.nextInt(level.length)];
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Degree degree() {
         return new Degree(course(), school(), level());
     }
+
+
+    /// PROJECT
+
+    private String projectID(){
+        return UUID.randomUUID().toString();
+    }
+
+    private double budget(){
+        return random.nextInt(19900000)+100000;
+    }
+
+    private int hours(){
+        return random.nextInt(8*5*52);
+    }
+
+    public Project project(){
+        return new Project(projectID(), budget(), hours());
+    }
+
+    /// POSITION
+
+
+
+
+    /// HEADQUARTER
+
+
+
+
 }

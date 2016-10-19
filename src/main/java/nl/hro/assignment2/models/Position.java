@@ -1,11 +1,17 @@
 package nl.hro.assignment2.models;
 
 
+import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.slf4j.Log4jLogger;
+import org.apache.logging.slf4j.Log4jLoggerFactory;
+
 public class Position {
 
     private String name;
     private String discription;
     private double feePerHour;
+
+    private String projectID;
 
     public Position() {
     }
@@ -38,6 +44,18 @@ public class Position {
 
     public void setFeePerHour(double feePerHour) {
         this.feePerHour = feePerHour;
+    }
+
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(Project project) {
+        if(project == null) {
+            new Log4jLoggerFactory().getLogger("main").warn("Project given was null");
+            return;
+        }
+        projectID = project.getUniqueId();
     }
 
     @Override
