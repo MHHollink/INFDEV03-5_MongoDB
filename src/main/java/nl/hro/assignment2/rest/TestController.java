@@ -46,7 +46,7 @@ public class TestController {
         for (int i = 0; i < 10000; i++) {
             Employee e = generator.employee();
 
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < new Random().nextInt(3)+1; j++)
                 e.setPosition(generator.position(projects.get(new Random().nextInt(projects.size()))));
 
             employees.add(e);

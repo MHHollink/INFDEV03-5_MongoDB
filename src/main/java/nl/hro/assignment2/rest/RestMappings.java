@@ -82,16 +82,18 @@ public class RestMappings {
     }
 
 
-    private class WorkingHours {
-        int bsn;
-        int total;
-        double average;
+    public class WorkingHours {
+        public int bsn;
+        public double total;
+        public double average;
     }
 
     /// 2
-    @RequestMapping(value = "employees/working_hours", method = RequestMethod.GET)
-    public ResponseEntity<List<WorkingHours>> getTotalWorkHour() {
-        List<WorkingHours> workingHoursList = employeeRepository.findAll().stream().map(
+    @RequestMapping(value = "employees/working_hours/{page}", method = RequestMethod.GET)
+    public ResponseEntity<List<WorkingHours>> getTotalWorkHour(@PathVariable("page") int page) {
+        List<Employee> employees = employeeRepository.findAll();
+        employees = employees.subList(page*100, (page+1)*100);
+        List<WorkingHours> workingHoursList = employees.stream().map(
                 employee -> {
                     WorkingHours wh = new WorkingHours();
                     wh.bsn = employee.getBsn();
@@ -106,6 +108,10 @@ public class RestMappings {
         return ResponseEntity.ok(workingHoursList);
     }
 
+    @RequestMapping(value = "employees/working_hours", method = RequestMethod.GET)
+    public ResponseEntity<List<WorkingHours>> getTotalWorkHour() {
+        return getTotalWorkHour(0);
+    }
 
     /// 3
     @RequestMapping(value = "employees/{id}/total_fee", method = RequestMethod.GET)
