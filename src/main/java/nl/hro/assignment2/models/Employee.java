@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document
+@Document(collection = "Employees")
 public class Employee {
 
     @Id
@@ -18,6 +18,8 @@ public class Employee {
 
     private List<Address> addresses;
     private List<Degree> degrees;
+
+    private List<Position> positions;
 
     @Version
     Long version;
@@ -83,6 +85,21 @@ public class Employee {
 
     public void setDegrees(List<Degree> degrees) {
         this.degrees = degrees;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPosition(List<Position> positions) {
+        this.positions = positions;
+    }
+
+    public void setPosition(Position position) {
+        if(positions == null)
+            positions = new ArrayList<>();
+
+        positions.add(position);
     }
 
     @Override

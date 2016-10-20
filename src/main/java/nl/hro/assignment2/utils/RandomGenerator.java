@@ -3,6 +3,8 @@ package nl.hro.assignment2.utils;
 import nl.hro.assignment2.models.Address;
 import nl.hro.assignment2.models.Degree;
 import nl.hro.assignment2.models.Employee;
+import nl.hro.assignment2.models.Headquarter;
+import nl.hro.assignment2.models.Position;
 import nl.hro.assignment2.models.Project;
 
 import java.util.ArrayList;
@@ -46,6 +48,10 @@ public class RandomGenerator {
             "Bachelor", "Master of Science", "PHD"
     };
 
+    private String[] functions = {
+            "Producer", "Art director", "Lead Programmer", "Developer", "Designer", "Artist", "Head of Marketing", "Sales"
+    };
+
     private Random random;
 
     public RandomGenerator(long seed) {
@@ -59,20 +65,42 @@ public class RandomGenerator {
 
     /// EMPLOYEE
 
+    /**
+     * Get a random name picked from an array of possible names
+     *
+     * @return one of 50 names in {@link #fname}
+     */
     private String firstName() {
         return fname[random.nextInt(fname.length)];
     }
 
+    /**
+     * Get a random last name with or without prefix
+     *
+     * @return one of 50 last names from {@link #lname} with a 50/50 chance of having a prefix from {@link #tween}
+     */
     private String lastName(){
         return random.nextBoolean() ?
                 tween[random.nextInt(tween.length)] + lname[random.nextInt(lname.length)] :
                 lname[random.nextInt(lname.length)];
     }
 
+    /**
+     * Generate a random bsn number between 100000000 and 999999999
+     * @return a random 9 numbered digit
+     */
     private int bsn() {
         return random.nextInt(100000000) + 100000000;
     }
 
+    /**
+     * Create a random employee with {@link Employee#Employee(int, String, String)}
+     * using the random functions {@link #firstName()}, {@link #lastName()}, {@link #bsn()}
+     *
+     * adding a list of random generated addresses and degrees with it.
+     *
+     * @return an Employee object with almost all fields set.
+     */
     public Employee employee() {
         Employee randomEmployee = new Employee(bsn(), firstName(), lastName());
 
@@ -155,7 +183,7 @@ public class RandomGenerator {
     }
 
     private int hours(){
-        return random.nextInt(8*5*52);
+        return (random.nextInt(5*52) + 1) * 8; // max 8 hours a day, with 5 days for a whole year
     }
 
     public Project project(){
@@ -165,11 +193,57 @@ public class RandomGenerator {
     /// POSITION
 
 
+    private String name() {
+        return functions[random.nextInt(functions.length)];
+    }
+
+    private String description() {
+        String desciption = "";
+        for (int i = 0; i < random.nextInt(34) + 6; i++)
+            desciption += (char) (65 + random.nextInt(26));
+        return desciption;
+    }
+
+    private double fee() {
+        return random.nextInt(78) + 12;
+    }
+
+    private int hoursADay() {
+        return (random.nextInt(7) + 1); // max 8 hours a day, with 5 days for a whole year
+    }
+
+    public Position position() {
+        return new Position(name(), description(), fee());
+    }
+
+    public Position position(Project p) {
+        Position position = new Position(name(), description(), fee());
+        position.setProjectID(p);
+        position.setHours(hoursADay());
+        return position;
+    }
 
 
     /// HEADQUARTER
 
 
+    private String hqName() {
+        String hq = "";
+        for (int i = 0; i < random.nextInt(72) + 6; i++)
+            hq += (char) (65 + random.nextInt(26));
+        return hq;
+    }
 
+    private int rooms() {
+        return (random.nextInt(24)+1) * 6;// max 6 floors with 24 rooms on each floor
+    }
+
+    private double rent() {
+        return (random.nextInt(500)+450);// max 949 with at least 450
+    }
+
+    public Headquarter headquarter() {
+        return new Headquarter(hqName(), rooms(), rent(), address());
+    }
 
 }

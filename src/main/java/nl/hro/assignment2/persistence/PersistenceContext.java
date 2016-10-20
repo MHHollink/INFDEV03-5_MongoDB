@@ -13,9 +13,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "nl.hro.assignment2.persistence.repository")
 public class PersistenceContext extends AbstractMongoConfiguration {
 
+    public static final String DATABASE_NAME = "database";
+
     @Override
     protected String getDatabaseName() {
-        return "database";
+        return DATABASE_NAME;
     }
 
     @Override

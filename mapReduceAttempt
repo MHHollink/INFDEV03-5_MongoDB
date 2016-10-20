@@ -1,0 +1,26 @@
+var map = function() {
+    emit(this.bsn, this.positions);
+}
+
+var reduce = function(k, v) {
+    var total;
+    v.forEach(function(position) {
+        total += (position.feePerHour * position.hours);
+    });
+    return  total;
+}
+
+db.getCollection('Employees').mapReduce(
+    map,
+    reduce,
+    {
+        query: { },
+        out : "Total_Fee"
+    }
+);
+
+
+
+
+
+// Werkt voor geen meter tho!
